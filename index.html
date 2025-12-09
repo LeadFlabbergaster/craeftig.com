@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>craeftig.com - For Sale</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%232C2416'/><text x='50' y='65' font-size='24' text-anchor='middle' font-family='serif' fill='%23D4A855'>C</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Spectral:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --parchment: #F4F1EA;
+            --ink: #2C2416;
+            --gold: #D4A855;
+            --gold-dark: #B8923D;
+            --warm-gray: #8B8175;
+            --cream: #FAF8F3;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Spectral', Georgia, serif;
+            background-color: var(--parchment);
+            color: var(--ink);
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Subtle paper texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Decorative line */
+        .ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .ornament-line {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .ornament-diamond {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            transform: rotate(45deg);
+        }
+
+        /* Domain name */
+        .domain {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: clamp(2.5rem, 10vw, 4rem);
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+            color: var(--ink);
+            animation: fadeIn 1s ease-out 0.1s backwards;
+        }
+
+        .domain-ext {
+            color: var(--warm-gray);
+        }
+
+        .meaning {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--warm-gray);
+            margin-bottom: 0.5rem;
+            animation: fadeIn 1s ease-out 0.2s backwards;
+        }
+
+        .tagline {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: var(--warm-gray);
+            margin-bottom: 2.5rem;
+            animation: fadeIn 1s ease-out 0.3s backwards;
+        }
+
+        /* Price section */
+        .price-section {
+            border-top: 1px solid rgba(44, 36, 22, 0.15);
+            border-bottom: 1px solid rgba(44, 36, 22, 0.15);
+            padding: 1.5rem 0;
+            margin-bottom: 2.5rem;
+            animation: fadeIn 1s ease-out 0.4s backwards;
+        }
+
+        .price-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--warm-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .includes {
+            font-size: 0.85rem;
+            color: var(--warm-gray);
+            margin-top: 0.75rem;
+            font-style: italic;
+        }
+
+        /* Form section */
+        .form-section {
+            animation: fadeIn 1s ease-out 0.5s backwards;
+        }
+
+        .form-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--warm-gray);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 0.875rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: var(--cream);
+            border: 1px solid rgba(44, 36, 22, 0.2);
+            color: var(--ink);
+            font-family: 'Spectral', Georgia, serif;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: var(--warm-gray);
+            font-style: italic;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 2px rgba(212, 168, 85, 0.15);
+        }
+
+        textarea {
+            resize: none;
+            min-height: 80px;
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: var(--ink);
+            border: none;
+            color: var(--parchment);
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        button:hover {
+            background: var(--gold-dark);
+            color: var(--ink);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .success {
+            background: var(--gold) !important;
+            color: var(--ink) !important;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            color: var(--warm-gray);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hidden honeypot */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 600px) {
+            main {
+                padding: 2rem 1.25rem;
+            }
+
+            .ornament-line {
+                width: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <div class="container">
+            
+            <div class="ornament">
+                <span class="ornament-line"></span>
+                <span class="ornament-diamond"></span>
+                <span class="ornament-line"></span>
+            </div>
+
+            <h1 class="domain">cræftig<span class="domain-ext">.com</span></h1>
+            <p class="meaning">Old English — powerful, strong, skilled</p>
+            <p class="tagline">This domain is for sale</p>
+            
+            <div class="price-section">
+                <p class="price-label">Asking price</p>
+                <p class="price">€35.000</p>
+                <p class="includes">Includes @craeftig Instagram handle</p>
+            </div>
+
+            <div class="form-section">
+                <span class="form-label">Enquiries welcome</span>
+                
+                <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="382f5c52-a769-4854-92a8-b9b13fe5df28">
+                    <input type="hidden" name="subject" value="Offer on craeftig.com">
+                    <input type="hidden" name="from_name" value="craeftig.com Website">
+                    <input type="checkbox" name="botcheck" class="hidden">
+                    
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Your email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="offer" placeholder="Your offer (optional)">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Your message (optional)" rows="3"></textarea>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 craeftig.com</p>
+    </footer>
+
+    <script>
+        const form = document.getElementById('contact-form');
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton.textContent;
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    submitButton.textContent = 'Thank you';
+                    submitButton.classList.add('success');
+                    form.reset();
+
+                    setTimeout(() => {
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalButtonText;
+                        submitButton.classList.remove('success');
+                    }, 3000);
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                submitButton.textContent = 'Try again';
+                submitButton.disabled = false;
+                alert('Something went wrong. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
